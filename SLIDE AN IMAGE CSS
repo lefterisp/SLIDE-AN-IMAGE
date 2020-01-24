@@ -1,0 +1,84 @@
+/* The parent container taking up the full viewport */
+.container {
+  width: 150%;
+  height: 85vh;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The div that contains the image  */
+/* Centering trick: https://css-tricks.com/centering-percentage-widthheight-elements/ */
+.image-container {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%,-50%);
+  z-index: 2; /* Makes sure this is on top */
+}
+
+/* The image inside the first div */
+.image-container img {
+  -webkit-filter: drop-shadow(-4px 5px 5px rgba(0,0,0,0.5));
+  filter: drop-shadow(-4px 5px 5px rgba(0,0,0,0.5));
+  height: 750px;
+}
+
+/* The div that holds the text that will be revealed */
+/* Same centering trick */
+.text-container {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%,-50%);
+  z-index: 1; /* Places this below the image container */
+  margin-left: -50px;
+}
+.fading-effect {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: transparent;
+}
+/* Slides the image from left (-250px) to right (150px) */
+@keyframes image-slide {
+  0% { transform: translateX(-250px) scale(0); }
+  60% { transform: translateX(-250px) scale(1); }
+  90% { transform: translateX(150px) scale(1); }
+  100% { transform: translateX(150px) scale(1); }  
+}
+
+/* Slides the text by shrinking the width of the object from full (100%) to nada (0%) */
+@keyframes text-slide {
+  0% { width: 100%; }
+  60% { width: 100%; }
+  75%{ width: 0; }
+  100% { width: 0; }
+}
+.image-container img {
+  /* [animation name] [animation duration] [animation transition function] */
+  animation: image-slide 4s cubic-bezier(.5,.5,0,1);
+}
+.image-container img {
+  animation: image-slide 4s cubic-bezier(.5,.5,0,1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes image-slide {
+  0% { transform: translatex(-250px) scale(0); }
+  60% { transform: translatex(-250px) scale(1); }
+  90% { transform: translatex(150px) scale(1); }
+  100% { transform: translatex(150px) scale(1); }
+}
+
+/* Changes animation values for viewports up to 1000px wide */
+@media screen and (max-width: 1000px) {
+  @keyframes image-slide {
+    0% { transform: translatex(-150px) scale(0); }
+    60% { transform: translatex(-150px) scale(1); }
+    90% { transform: translatex(120px) scale(1); }
+    100% { transform: translatex(120px) scale(1); }
+  }
+}
